@@ -1,10 +1,14 @@
+#import from python first, Django second, and your own modules thirs
 import sqlite3
+from ..connection import Connection
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.urls import reverse
+from django.shortcuts import redirect
 from libraryapp.models import Book
 from libraryapp.models import model_factory
-from ..connection import Connection
 
-
+@login_required
 def book_list(request):
     # Always have to specify request method for a view
     if request.method == 'GET':
@@ -42,8 +46,35 @@ def book_list(request):
         #convert to HTML
         #
         template = 'books/list.html'
+        #context is the data to be used in the template
         context = {
             'all_books': all_books
         }
         #In DJANGO you have to manually wire up URLs
         return render(request, template, context)
+#Handle the case of a reque
+    elif request.method == 'POST':
+        #Get some form data
+        form_data = request.POST
+
+
+        #make connection to DB
+        with sqlite3.connect(Connection.db_path) as conn:
+            db_cursor = conn.cursor()
+
+            db_cursor.execute("""
+            INSERT INTO libraryapp_book
+            (
+                title, author, isbn,
+                year_published, location_id, librarian_id
+            )
+            VALUES (?, ?, ?, ?, ?, ?)
+            """,
+            #This is a second argument--which is a tuple of the data
+            (form_data['title'], form_data['author'],
+                form_data['isbn'], form_data['year_published'],
+                request.user.librarian.id, form_data["location"]))
+        # values as ? prevent hackers from passing SQL injection attacks in
+
+        #After it postts, send them to the booklist
+        return redirect(reverse('libraryapp:books'))
