@@ -1,10 +1,11 @@
 import sqlite3
 from django.shortcuts import render
 from libraryapp.models import Librarian
+from django.contrib.auth.decorators import login_required
 from libraryapp.models import model_factory
 from ..connection import Connection
 
-
+@login_required
 def list_librarians(request):
     with sqlite3.connect(Connection.db_path) as conn:
         conn.row_factory = model_factory(Librarian)
@@ -25,4 +26,5 @@ def list_librarians(request):
         all_librarians = db_cursor.fetchall()
 
     template_name = 'librarians/list.html'
+    # no context here, just giving the kev, value pair as the argument instead of setting to context var
     return render(request, template_name, {'all_librarians': all_librarians})

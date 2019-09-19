@@ -1,9 +1,11 @@
 import sqlite3
 from django.shortcuts import render
 from libraryapp.models import Library
+from django.contrib.auth.decorators import login_required
 from libraryapp.models import model_factory
 from ..connection import Connection
 
+@login_required
 def library_list(request):
     with sqlite3.connect(Connection.db_path) as conn:
         conn.row_factory = model_factory(Library)

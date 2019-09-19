@@ -1,10 +1,11 @@
 import sqlite3
 from django.shortcuts import render
 from libraryapp.models import Book
+from django.contrib.auth.decorators import login_required
 from libraryapp.models import model_factory
 from ..connection import Connection
 
-
+@login_required
 def book_list(request):
     # Always have to specify request method for a view
     if request.method == 'GET':
@@ -42,6 +43,7 @@ def book_list(request):
         #convert to HTML
         #
         template = 'books/list.html'
+        #context is the data to be used in the template
         context = {
             'all_books': all_books
         }
