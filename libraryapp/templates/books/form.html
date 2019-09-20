@@ -1,13 +1,8 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html>
 
-<head>
-    <meta charset="utf-8">
-    <title>Library</title>
-</head>
+{% extends 'shared/base.html' %}
 
-<body>
+{% block content %}
+
     <h1>Inventory Book</h1>
 {% comment %} If the book.id parameter exists in the context, that means that the user is changing the current state of the book. Therefore, the POST request should be sent to /books/{id}. {% endcomment %}
 {% comment %} Otherwise, the user is creating a new book, and the POST request should be sent to /books. {% endcomment %}
@@ -52,6 +47,4 @@
         {% endif %}
 
     </form>
-</body>
-
-</html>
+{% endblock %}
