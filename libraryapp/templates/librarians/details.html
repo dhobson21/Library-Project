@@ -1,0 +1,16 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Librarians</title>
+  </head>
+  <body>
+    <h1>{{ librarian.first_name }} {{librarian.last_name}}</h1>
+
+    <div>{{ librarian.first_name }} is the keeper of books at {{librarian.title}}.</div>
+
+    <div><p>You can reach {{librarian.first_name}} at {{librarian.email}}.</p></div>
+
+  </body>
+</html>
