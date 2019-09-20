@@ -21,6 +21,6 @@ urlpatterns = [
     path('librarians/<int:librarian_id>/', librarian_details, name='librarian'),
     #The below lets application use built in login screen
     path('accounts/', include('django.contrib.auth.urls')),
-    path('logout/$', logout_user, name='logout'),
+    path('logout/', logout_user, name='logout'),
     url(r'^books/(?P<book_id>[0-9]+)/form$', book_edit_form, name='book_edit_form'),
 ]
