@@ -7,16 +7,19 @@ from .views import *
 app_name = "libraryapp"
 
 urlpatterns = [
+    #url v path
+    #url has to take a regular expression
+    #path can take the string of the path
     url(r'^$', home, name='home'),
-    url(r'^books$', book_list, name='books'),
-    url(r'^librarians$', list_librarians, name='librarians'),
-    url(r'^libraries$', library_list, name='libraries'),
-    #The below lets application use built in login screen
-    url(r'accounts/', include('django.contrib.auth.urls')),
-    url(r'^logout/$', logout_user, name='logout'),
-    url(r'^book/form$', book_form, name='book_form'),
-    url(r'^library/form$', library_form, name='library_form'),
+    path('books/', book_list, name='books'),
+    path('book/form', book_form, name='book_form'),
     path('books/<int:book_id>/', book_details, name='book'),
+    path('libraries/', library_list, name='libraries'),
+    path('library/form', library_form, name='library_form'),
     path('libraries/<int:library_id>/', library_details, name='library'),
+    path('librarians/', list_librarians, name='librarians'),
     path('librarians/<int:librarian_id>/', librarian_details, name='librarian'),
+    #The below lets application use built in login screen
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('logout/$', logout_user, name='logout'),
 ]
