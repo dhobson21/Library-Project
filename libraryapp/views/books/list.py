@@ -73,7 +73,7 @@ def book_list(request):
             #This is a second argument--which is a tuple of the data
             (form_data['title'], form_data['author'],
                 form_data['isbn'], form_data['year_published'],
-                request.user.librarian.id, form_data["location"]))
+                form_data["location"], request.user.librarian.id))
         # values as ? prevent hackers from passing SQL injection attacks in
 
         #After it postts, send them to the booklist

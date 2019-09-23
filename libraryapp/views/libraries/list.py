@@ -30,7 +30,10 @@ def library_list(request):
 
             all_libraries = db_cursor.fetchall()
             library_groups ={}
+            print(all_libraries)
             for (library, book) in all_libraries:
+
+
 
     # If the dictionary does have a key of the current
     # library's `id` value, add the key and set the value
